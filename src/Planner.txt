@@ -1,0 +1,5 @@
+things to fix: 
+red border thing on payment too
+payment show up after button clicked
+things to add:
+

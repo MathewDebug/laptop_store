@@ -1,0 +1,22 @@
+/* Credits */
+
+.credits h2 {
+	display: inline-block;
+	padding-right: 500px;
+}
+
+.credits div {
+	display: inline;
+}
+
+.column {
+	float: left;
+	width: 33.33%;
+	height: 230px;
+	background-color: RGB(209, 209, 209);
+}
+
+.credits img {
+	width: 30px;
+}
+

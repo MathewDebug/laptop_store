@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+	<html>
+		<head>
+			<title>Checkout- ASOOS</title>
+			<link rel = "stylesheet" href = "checkout.css" />
+			<link rel = "stylesheet" href = "navbar.css" />
+			<link rel = "stylesheet" href = "credits.css" />
+			<script>
+				function initialize() {
+					filled = false;
+					filledPayment = false;
+				}
+				
+				function convertParts() {
+					//reset money
+					processorMoney = 0;
+					memoryMoney = 0;
+					storageMoney = 0;
+					processorType = sessionStorage.getItem("processor");
+					memoryType = sessionStorage.getItem("memory");
+					storageType = sessionStorage.getItem("storage");
+					console.log("processorType - " + processorType);
+					console.log("memoryType - " + memoryType);
+					console.log("storageType - " + storageType);
+					//Processor
+					if (processorType == "i5") {
+						processorMoney = 100;
+					} 
+					if (processorCost = "i7") {
+						processorMoney = 200;
+					}
+					//Memory
+					if (memoryType == "8GB") {
+						memoryMoney = 150;
+					}
+					if (memoryType == "16GB") {
+						memoryMoney = 250;
+					}
+					//Storage
+					if (storageType == "64GB") {
+						storageMoney = 200;
+					} 
+					if (storageType == "256GB") {
+						storageMoney = 300;
+					}
+					addMoney();
+				}
+				
+				function addMoney() {
+					var baseMoney = 800;
+					shippingMoney = 10;
+					subtotalMoney = baseMoney + processorMoney + memoryMoney + storageMoney;
+					taxMoney = (subtotalMoney * 0.0875).toFixed(2); //rounds number 2 decimal places
+					totalMoney = parseFloat(subtotalMoney) + parseFloat(taxMoney);
+					display();
+				}	
+				
+				function display() {
+					if (sessionStorage.getItem("item") == "laptop") { //display only if u click buy
+						document.getElementById("subtotal").innerHTML = "$" + subtotalMoney;
+						document.getElementById("shippingCost").innerHTML = "$" + shippingMoney;
+						document.getElementById("tax").innerHTML = "$" + taxMoney;
+						document.getElementById("total").innerHTML = "$" + totalMoney;
+						displayCartItems();
+					}
+				}
+				
+				function wrongInput() {
+					inputsOutput = document.getElementsByTagName("INPUT");
+					selectOutput = document.getElementById("states");
+					for (var idx = 0; idx < 7; idx++) {
+						if (inputsOutput[idx].value == "") {
+							inputsOutput[idx].classList.add("inputBorder");
+							document.getElementById("message").className = "messageFixed";
+						}
+						if (selectOutput.value == "") {
+							states.classList.add("inputBorder");
+							document.getElementById("message").className = "messageFixed";
+						}
+					}
+					if (inputsOutput[0].value != "" && inputsOutput[1].value != "" && inputsOutput[2].value != "" && inputsOutput[3].value != "" && inputsOutput[4].value != "" && inputsOutput[5].value != "" && inputsOutput[6].value != "") {
+						filled = true;
+					}
+				}
+				
+				function proceedToCheckout() {
+					if (filled == true) {
+						document.getElementById("payment").className = "payment";
+						document.getElementById("shipping").className = "noDisplay";
+						document.getElementById("contact").className = "noDisplay";
+						document.getElementById("orderSummary").className = "noDisplay";
+						document.getElementById("purchaseButton").className = "purchase";
+					}
+				}
+				
+				function displayCartItems() {
+					document.getElementById("imageCart").className = "displayCart";
+					document.getElementById("textCart").className = "displayTextCart";
+				}
+				
+				function wrongInputPayment() {
+					paymentInputsOutput = document.getElementsByTagName("INPUT");
+					for (var idx = 8; idx < 19; idx++) {
+						if (inputsOutput[idx].value == "") {
+						console.log("idx - " + idx);
+							inputsOutput[idx].classList.add("inputBorder");
+							document.getElementById("messageTwo").className = "messageFixed";
+						}
+					}
+					if (inputsOutput[8].value != "" && inputsOutput[9].value != "" && inputsOutput[10].value != "" && inputsOutput[11].value != "" && inputsOutput[12].value != "" && inputsOutput[13].value != "" && inputsOutput[14].value != "" && inputsOutput[15].value != "" && inputsOutput[16].value != "" && inputsOutput[17].value != "" && inputsOutput[18].value != "") {
+						filledPayment = true;
+					}
+				}
+				
+				function purchased() {
+					if(filledPayment == true) {
+						document.getElementById("finishedShopping").className = "purchasedItem";
+						document.getElementById("payment").className = "noDisplay";
+						document.getElementById("purchaseButton").className = "noDisplay";
+					}
+				}
+			</script>
+		</head>
+		<body onload = "initialize(); convertParts()">
+			<!-- Navbar -->
+			<section class = "navbar checkoutNav">
+				<div>
+					<img class = "companyLogo" src = "pics/logo.png" />
+					<ul class = "navbarList"> 
+						<li class = "nav-item"><a href = "homepage.html#home">Home</a></li>
+						<li class = "nav-item"><a href = "sell.html">Buy</a></li>
+						<li class = "nav-item"><a href = "homepage.html#brag">About</a></li>
+						<li class = "nav-item"><a href = "homepage.html#bragTwo">Specs</a></li>
+						<li class = "nav-item"><a href = "homepage.html#contact">Contact</a></li>
+					</ul>
+				</div>
+			</section>
+			
+			<!-- Top -->
+			<h1 class = "topTitle">Checkout</h1>
+			<hr class = "topHr" />
+			 
+			<!-- Shipping -->
+			<section id = "shipping" class = "shipping">
+				<h2>Shipping Information</h2>
+				<span class = "noDisplay" id = "message">Please Fill in all your information to proceed to checkout!</span>
+				<div class = "left">
+					<h3>First Name</h3>
+					<input type = "text" placeholder = "First Name"></input>
+					<h3>Address</h3>
+					<input type = "text" placeholder = "Address"></input>
+					<h3>City</h3>
+					<input type = "text" placeholder = "City"></input>
+					<div class = "left">
+						<h3>State</h3>
+						<select id = "states">
+							<option disabled selected value></option><option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option>
+							<option>CO</option><option>CT</option><option>DE</option><option>FL</option><option>GA</option><option>HI</option><option>ID</option>
+							<option>IL</option><option>IN</option><option>IA</option><option>KS</option><option>KY</option><option>LA</option><option>ME</option>
+							<option>MD</option><option>MA</option><option>MI</option><option>MN</option><option>MS</option><option>MO</option><option>MT</option>
+							<option>NE</option><option>NV</option><option>NH</option><option>NJ</option><option>NM</option><option>NY</option><option>NC</option>
+							<option>ND</option><option>OH</option><option>OK</option><option>OR</option><option>PA</option><option>RI</option><option>SC</option>
+							<option>SD</option><option>TN</option><option>TX</option><option>UT</option><option>VT</option><option>VA</option><option>WA</option>
+							<option>WV</option><option>WI</option><option>WY</option>
+						</select>
+					</div>
+					<div class = "right">
+						<h3 class = "zipCode">Zip Code</h3>
+						<input id = "zipInput" type = "text" placeholder = "Zip Code"></input>
+					</div>
+				</div>
+				
+				<div class = "right">
+					<h3 class = "lastName">Last Name</h3>
+					<input class = "lastNameInput" type = "text" placeholder = "Last Name"></input>
+				</div>				
+			</section>
+				
+			<!-- Order Summary -->
+			<section id = "orderSummary" class = "orderSummary">
+				<h2>Order Summary</h2>
+				<div>
+					<span class = "moneyTitle">Subtotal:</span>
+					<span class = "money" id = "subtotal">$0.00</span>
+				</div>
+				<div>
+					<span class = "moneyTitle">Estimated Shipping:</span>
+					<span class = "money" id = "shippingCost">$0.00</span>
+				</div>
+				<div>
+					<span class = "moneyTitle">Estimated Tax:</span>
+					<span class = "money" id = "tax">$0.00</span>
+				</div>
+				<div>
+					<span class = "moneyTitle">Total:</span>
+					<span class = "money" id = "total">$0.00</span>
+				</div>
+				<hr />
+				<div class = "left">
+					<img id = "imageCart" class = "noDisplay" src = "pics/viewOne.png" />
+				</div>
+				<div class = "right">
+					<span id = "textCart" class = "noDisplay">Asus ROG Strix GL503VS-DH74 Scar Edition</span>
+				</div>
+				<div class = "center">
+					<button onclick = "wrongInput(); proceedToCheckout()" id = "submitButton" class = "submitButton">Continue to Payment</button>
+				</div>
+			</section>
+			
+			<!-- Contacts -->
+			<section id = "contact" class = "contact">
+				<h2>Contact Information</h2>
+				<div class = "left">
+					<h3 class = "email">Email</h3>
+					<input type = "email" placeholder = "Email"></input>
+				</div>
+				<div class = "right"> 
+					<h3 class = "number">Phone Number</h3>
+					<input type = "text" placeholder = "Phone Number"></input>
+				</div>
+				<div>
+					<input class = "checkbox" type = "checkbox"></input>
+					<label>Sign up to receive emails about our products!</label>
+				</div>
+			</section>
+				
+			<!-- Payment -->
+			<section id = "payment" class = "noDisplay">
+				<h2>Payment</h2>
+				<span class = "noDisplay" id = "messageTwo">Please Fill in all your information to successfully buy your items!</span>
+				<div class = "left">
+					<h3>Full Name</h3>
+					<input type = "text" placeholder = "Full Name">
+					<h3>Email</h3>
+					<input type = "text" placeholder = "Email">
+					<h3 >Address</h3>
+					<input type = "text" placeholder = "Address">
+					<h3>City</h3>
+					<input type = "text" placeholder = "City">
+					<div class = "left">
+						<h3>State</h3>
+						<input class = "leftDouble" type = "text" placeholder = "State">
+					</div>
+					<div class = "right">
+						<h3>Zip</h3>
+						<input class = "leftDouble" type = "text" placeholder = "Zip">
+					</div>
+				</div>
+				<div class = "right">
+					<h3>Accepted Cards</h3>
+					<img src = "pics/payment.png" />
+					<h3>Name on Card</h3>
+					<input type = "text" placeholder = "Full Name with Initials">
+					<h3>Credit Card Number</h3>
+					<input type = "text" placeholder = "1111-2222-3333-4444">
+					<h3>Exp Month</h3>
+					<input type = "text" placeholder = "Month">
+					<div class = "left">
+						<h3>Exp Year</h3>
+						<input class = "leftDouble" type = "text" placeholder = "Year">
+					</div>
+					<div class = "right">
+						<h3>CVV</h3>
+						<input class = "leftDouble" type = "text" placeholder = "123">
+					</div>
+				</div>
+				<div class = "white">hello</div> 
+				<div class = "bottomDisplay"></div>
+			</section>
+			<button id = "purchaseButton" onclick = "purchased(); wrongInputPayment()" class = "noDisplay">Purchase</button>
+			<div id = "finishedShopping" class = "noDisplay">You Successfully purchased your items!</div>
+		</body>
+	</html>

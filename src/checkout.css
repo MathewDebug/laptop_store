@@ -1,0 +1,191 @@
+/* Container */
+.topTitle {
+	text-align: center;
+	margin-top: 60px;
+	font-size: 50px;
+}
+
+.topHr {
+	width: 60%;
+	margin-left: 17.5%;
+	margin-bottom: 30px;
+}
+
+/* Shipping */
+.shipping {
+	padding-bottom: 20px;
+}
+
+.shipping select {
+	width: 7.5vw;
+	height: 3.6vh;
+	margin-left: 3%;
+}
+
+.shipping, #zipInput {
+	width: 82%;
+}
+
+/* Contacts */
+.contact {
+	padding-bottom: 20px;
+}
+
+.contact .checkbox {
+	width: 30px;
+	margin-top: 20px;
+}
+
+/* Order Summary */
+.orderSummary {
+	width: 22%;
+}
+
+.money {
+	float: right;
+}
+
+.orderSummary h2 {
+	background-color: black;
+	color: white;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding: 15px 0px 15px 5px;
+	font-size: 30px;
+}
+
+.orderSummary hr {
+	width: 90%;
+}
+
+.moneyTitle {
+	margin-left: 3px;
+	font-size: 19px;
+	font-weight: bold;
+}
+
+.money {
+	margin-right: 3px;
+	font-size: 19px;
+}
+
+.displayCart {
+	display: inline-block;
+	width: 55%;
+}
+
+.displayTextCart {
+	text-align: center;
+	font-weight: bold;
+	font-size: 1vw;
+}
+/* Button */
+.submitButton {
+	background-color: #E83232;
+	width: 90%;
+	padding: 9px 0px 9px 0px;
+	border: solid thin red;
+	margin-bottom: 15px;
+	border-radius: 6px;
+}
+
+.submitButton:hover {
+	background-color: #A20202;
+	color: white;
+	border:thin solid #A20202;
+}
+
+/* Payment */
+.payment {
+	margin-bottom: 200px;
+	display: inline-block;
+	border: solid thin black;
+	vertical-align: top;
+}
+
+.payment h3 {
+	margin-left: 3%;
+}
+
+.payment .leftDouble {
+	width: 80%;
+}
+
+.payment img {
+	width: 85%;
+}
+
+.bottomDisplay {
+	background-color: black;
+	margin-top: 25px;
+	padding: 30px 0px 30px 0px;
+}
+
+.purchase {
+	background-color: #E83232;
+	width: 22%;
+	padding: 9px 0px 9px 0px;
+	border: solid thin red;
+	margin-bottom: 15px;
+	border-radius: 6px;
+}
+
+.purchase:hover {
+	background-color: #A20202;
+	color: white;
+	border:thin solid #A20202;
+}
+
+/* Multiple/Global */
+.shipping, .orderSummary, .contact {
+	display: inline-block;
+	border: solid thin black;
+	vertical-align: top;
+}
+
+.shipping, .contact, .payment {
+	margin-left: 14vw;
+	width: 45%;
+}
+
+.shipping h2, .contact h2, .payment h2{
+	background-color: black;
+	color: white;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding: 15px 0px 15px 5px;
+	font-size: 30px;
+}
+
+input {
+	padding: 8px 0px 8px 0px;
+	margin-left: 2%;
+	width: 90%;
+}
+
+h3 {
+	font-size: 24px;
+	margin-left: 2%;
+}
+
+/* Javascript */
+.inputBorder {
+	border: thin solid red;
+}
+
+.messageFixed {
+	padding-left: 5px;
+	font-size: 1vw;
+	color: red;
+	display: block;
+}
+
+/* Test */
+.noDisplay {
+	display: none;
+}
+
+.purchasedItem {
+	font-size: 1.2vw;
+	text-align: center;
+}

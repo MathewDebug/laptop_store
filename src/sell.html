@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+	<html>
+		<head>
+			<title>Cart- ASOOS</title>
+			<link rel = "stylesheet" href = "sell.css" />
+			<link rel = "stylesheet" href = "navbar.css" />
+			<link rel = "stylesheet" href = "credits.css" />
+			
+			<!-- Google Fonts -->
+			<link href="https://fonts.googleapis.com/css2?family=Arimo:wght@700&family=Baloo+Chettan+2&display=swap" rel="stylesheet"> 
+			<script>
+				function initialize() {
+					rating = 0;
+					stars = document.getElementsByClassName("reviewStar");
+					click = false;
+				}
+				
+				function changeView(x) { //changes pictures when clicked
+					viewOutput = document.getElementById("view");
+					if (x == 1) {
+						viewOutput.src = "pics/viewOne.png"
+					}
+					if (x == 2) {
+						viewOutput.src = "pics/viewTwo.png"
+					}
+					if (x == 3) {
+						viewOutput.src = "pics/viewThree.png"
+					}
+					if (x == 4) {
+						viewOutput.src = "pics/viewFour.png"
+					}
+					if (x == 5) {
+						viewOutput.src = "pics/viewFive.png"
+					}
+				}
+				
+				function changeCartImage() { //changes the cart icon 
+					document.getElementById("cart").src = "pics/cart1.png";
+				} 
+				
+				function getOptionData() { //gets the data from selected options
+					//resets localStorage
+					sessionStorage.clear();
+					//Processor
+					processorOutput = document.getElementById("processor");
+					processorOption = processorOutput.options[processorOutput.selectedIndex].value;
+					console.log("processorOption - " + processorOption);
+					
+					//Memory
+					memoryOutput = document.getElementById("memory");
+					memoryOption = memoryOutput.options[memoryOutput.selectedIndex].value;
+					console.log("memoryOption - " + memoryOption);
+					
+					//Storage
+					storageOutput = document.getElementById("storage");
+					storageOption = storageOutput.options[storageOutput.selectedIndex].value;
+					console.log("storageOption - " + storageOption);
+					
+					laptopPartsStore();
+				}
+				
+				function laptopPartsStore() {
+					//if laptop is bought 
+					sessionStorage.setItem("item", "laptop");
+					if (typeof(Storage) !== "undefined" ) { //Check Browser Support
+						//Processor
+						if (processorOption == "i5Value") {
+							sessionStorage.setItem("processor", "i5"); //Stores data	
+						} 
+						if (processorOption == "i7Value") {
+							sessionStorage.setItem("processor", "i7");
+						}
+						//Memory (RAM)
+						if (memoryOption == "8GBValue") {
+							sessionStorage.setItem("memory", "8GB"); 
+						} 
+						if (memoryOption == "16GBValue") {
+							sessionStorage.setItem("memory", "16GB");
+						}
+						//Storage
+						if (storageOption == "64GBValue") {
+							sessionStorage.setItem("storage", "64GB"); 
+						}
+						if (storageOption == "256GBValue") {
+							sessionStorage.setItem("storage", "256GB");
+						}
+					} 
+				}
+				
+				//Review Section
+				function hoverStars(idx) { //changes stars when hovered over and off
+					if (idx <= 5 && click == false) {
+						var minus = idx;
+						for (var i = 0; i < idx; i++) {
+							stars[minus - 1].src = "pics/star.png";
+							var minus = minus - 1;	
+						}
+					} 
+					if (idx >= 5 && click == false) {
+						var minus = idx;
+						for (var i = 0; i < idx - 5; i++) {
+							stars[minus - 6].src = "pics/emptyStar.png";
+							var minus = minus - 1;	
+						}
+					}
+				}
+				
+				function changeStars(idx) { //changes stars when clicked
+					rating = idx;
+					var minus = idx;
+					for (var i = 0; i < idx; i++) {
+						stars[minus - 1].src = "pics/star.png";
+						var minus = minus - 1;	
+					}
+					click = true;
+				}
+				
+				function addReview() {
+					//gets id of input tags
+					var reviewNameOutput = document.getElementById("reviewName");
+					var reviewTitleOutput = document.getElementById("reviewTitle");
+					var reviewWriteOutput = document.getElementById("reviewWrite");
+					
+					var reviewIDOutput = document.getElementById("reviewID");
+					
+					var ratingStar = "<img class = 'reviewStar' src = 'pics/star.png' />";
+					var ratingEmptyStar = "<img class = 'reviewStar' src = 'pics/emptyStar.png' />";
+					if (rating == 1) {
+						reviewStars = ratingStar + ratingEmptyStar + ratingEmptyStar + ratingEmptyStar + ratingEmptyStar;
+					}
+					if (rating == 2) {
+						reviewStars = ratingStar + ratingStar + ratingEmptyStar + ratingEmptyStar + ratingEmptyStar;
+					}
+					if (rating == 3) {
+						reviewStars = ratingStar + ratingStar + ratingStar + ratingEmptyStar + ratingEmptyStar;
+					}
+					if (rating == 4) {
+						reviewStars = ratingStar + ratingStar + ratingStar + ratingStar + ratingEmptyStar;
+					}
+					if (rating == 5) {
+						reviewStars = ratingStar + ratingStar + ratingStar + ratingStar + ratingStar;
+					}
+
+					if(reviewNameOutput.value != "" &&  reviewTitleOutput.value != "" && reviewWriteOutput.value != "") { //if you dont fill out the boxes, it wont display
+						//display title name and text
+						document.getElementById("name").innerHTML = reviewNameOutput.value;
+						document.getElementById("title").innerHTML = reviewTitleOutput.value;
+						document.getElementById("text").innerHTML = reviewWriteOutput.value;
+						
+						//display star images
+						document.getElementById("stars").innerHTML = reviewStars;
+						
+						document.getElementById("reviewID").classList.add("showReview");
+					}
+				}
+				
+			</script>
+		</head>
+		<body onload = "initialize()">
+			<!-- Navbar -->
+			<section class = "navbar">
+				<img class = "companyLogo" src = "pics/logo.png" />
+				<a href = "checkout.html"><img id = "cart" class = "cartIcon" src = "pics/cart.png" /></a>
+				<hr />
+				<div>
+					<ul class = "navbarList"> 
+						<li class = "nav-item"><a href = "homepage.html#home">Home</a></li>
+						<li class = "nav-item"><a href = "#">Buy</a></li>
+						<li class = "nav-item"><a href = "homepage.html#brag">About</a></li>
+						<li class = "nav-item"><a href = "homepage.html#bragTwo">Specs</a></li>
+						<li class = "nav-item"><a href = "homepage.html#contact">Contact</a></li>
+					</ul>
+				</div>
+			</section>
+			
+			<!-- View -->
+			<section class = "view">
+				<h1>Asus ROG Strix GL503VS-DH74 Scar Edition</h1>
+				<h3>Gaming Laptop</h3>
+				<img id = "view" class = "firstView" src = "pics/viewOne.png" />
+				<div>
+					<img onclick = "changeView(1);" class = "lastView" src = "pics/viewOne.png" />
+					<img onclick = "changeView(2);" class = "lastView" src = "pics/viewTwo.png" />
+					<img onclick = "changeView(3);" class = "lastView" src = "pics/viewThree.png" />
+					<img onclick = "changeView(4);" class = "lastView"src = "pics/viewFour.png" />
+					<img onclick = "changeView(5);" class = "lastView"src = "pics/viewFive.png" />
+				</div>
+				<div>
+					<span>Processor Model:</span>
+					<select id = "processor"><option value = "i5Value">Intel 8th Generation Core i5</option><option value = "i7Value">Intel 8th Generation Core i7</option></select>
+					<span>System Memory (RAM):</span>
+					<select id = "memory"><option value = "8GBValue">8GB</option><option value = "16GBValue">16GB</option></select>
+					<span>Total Storage Capacity:</span>
+					<select id = "storage"><option value = "64GBValue">64GB</option><option value = "256GBValue">256GB</option></select>
+				</div>
+				<button onclick = "changeCartImage(); getOptionData()">Add to Cart</button>
+			</section>
+			
+			<hr />
+			
+			<!-- Specs -->
+			<section id = "specs" class = "specs">
+				<h1>Product Information</h1>
+				<div class = "left">
+					<h2>Technical Details</h2>
+					<table>
+						<tr>
+							<th>Screen Size</th>
+							<td>15.6 inches</td>
+						</tr>
+						<tr>
+							<th>Max Screen Resolution</th>
+							<td>1920 x 1080 pixels</td>
+						</tr>
+						<tr>
+							<th>Processor/CPU</th>
+							<td>2.8 GHz Intel Core i7</td>
+						</tr>
+						<tr>
+							<th>RAM</th>
+							<td>16 GB DDR4</td>
+						</tr>
+						<tr>
+							<th>Memory Speed</th>
+							<td>2400 MHz</td>
+						</tr>
+						<tr>
+							<th>Hard Drive</th>
+							<td>1000 GB Hybrid Drive</td>
+						</tr>
+						<tr>
+							<th>Graphics Coprocessor</th>
+							<td>NVIDIA GeForce GTX 1070</td>
+						</tr>
+						<tr>
+							<th>Chipset Brand</th>
+							<td>NVIDIA</td>
+						</tr>
+						<tr>
+							<th>Graphics Card Ram Size</th>
+							<td>	8 GB</td>
+						</tr>
+						<tr>
+							<th>Number of USB 3.0 Ports</th>
+							<td>5</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class = "right">
+					<h2>Additional Information</h2>
+					<table>
+						<tr>
+							<th>Brand Name</th>
+							<td>ASUS</td>
+						</tr>
+						<tr>
+							<th>Item model number</th>
+							<td>GL503VS-DH74</td>
+						</tr>
+						<tr>
+							<th>Hardware Platform</th>
+							<td>PC</td>
+						</tr>
+						<tr>
+							<th>Item Weight</th>
+							<td>5.1 pounds</td>
+						</tr>
+						<tr>
+							<th>Product Dimensions</th>
+							<td>15.2 x 10.3 x 1 inches</td>
+						</tr>
+						<tr>
+							<th>Processor Brand</th>
+							<td>	Intel</td>
+						</tr>
+						<tr>
+							<th>Processor Count</th>
+							<td>4</td>
+						</tr>
+						<tr>
+							<th>Computer Memory Type</th>
+							<td>DDR4 SDRAM</td>
+						<tr>
+							<th>Flash Memory Size</th>
+							<td>256</td>
+						</tr>
+						<tr>
+							<th>Hard Drive Rotational Speed</th>
+							<td>5400 RPM</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class = "warranty">
+					<h3>Warranty</h3>
+					<hr />
+					<p> This product has a 1 year warranty for free if you buy now.</p>
+				</div>
+			</section>
+			
+			<hr />
+			<!-- Review -->
+			<section class = "review">
+				<div class = "reviewCreate">
+					<h1>Reviews</h1>
+					<div class = "stars">
+						<img onmouseover = "hoverStars(1)" onmouseout = "hoverStars(6)" onclick = "changeStars(1)" class = "reviewStar starOne" src = "pics/emptyStar.png" />
+						<img onmouseover = "hoverStars(2)" onmouseout = "hoverStars(7)" onclick = "changeStars(2)" class = "reviewStar starTwo" src = "pics/emptyStar.png" />
+						<img onmouseover = "hoverStars(3)" onmouseout = "hoverStars(8)" onclick = "changeStars(3)" class = "reviewStar starThree" src = "pics/emptyStar.png" />
+						<img onmouseover = "hoverStars(4)" onmouseout = "hoverStars(9)" onclick = "changeStars(4)" class = "reviewStar starFour" src = "pics/emptyStar.png" />
+						<img onmouseover = "hoverStars(5)" onmouseout = "hoverStars(10)" onclick = "changeStars(5)" class = "reviewStar starFive" src = "pics/emptyStar.png" />
+					</div>
+					<input id = "reviewName" type = "text" placeholder = "Name"></input>
+					<input id = "reviewTitle" class = "reviewTitle" type = "text" placeholder = "title"></input>
+					<input id = "reviewWrite" class = "reviewWrite" type = "text" placeholder = "Write your review here"></input>
+					<button onclick = "addReview()">Submit</button>
+				</div>
+				
+				<hr />
+				<div class = "reviewID" id = "reviewID">
+					<img src = "pics/pfp.png" />
+					<span id = "name" class = "name"></span>
+					<div>
+						<span id = "stars"></span>
+						<span id = "title"></span>
+					</div>
+					<p id = "text"></p>
+					
+					<hr />
+				</div>
+				
+				<div class = "reviews">
+					<img src = "pics/pfp.png" />
+					<span class = "name">Anthony Jonny</span>
+					<div>
+						<img class = "reviewStar" src = "pics/star.png" />
+						<img class = "reviewStar" src = "pics/star.png" />
+						<img class = "reviewStar" src = "pics/star.png" />
+						<img class = "reviewStar" src = "pics/star.png" />
+						<img class = "reviewStar" src = "pics/star.png" />
+						<span>Understated look, great performance</span>
+					</div>
+					<p>Exactly what I hoped it would be. The fans do get loud but I expected that. All around a very capable and enjoyable machine. As a financial analyst, 
+					the number pad is so clutch. The keys feel great and the understated non-traditional "gaming laptop" look of this thing makes me not feel like a loser 
+					when I bust it out in public. Super happy I bought it.
+					</p>
+					
+					<hr />
+				
+					<img src = "pics/pfp.png" />
+					<span class = "name">WG Steven</span>
+					<div>
+						<img class = "reviewStar" src = "pics/star.png" />
+						<img class = "reviewStar" src = "pics/star.png" />
+						<img class = "reviewStar" src = "pics/star.png" />
+						<img class = "reviewStar" src = "pics/star.png" />
+						<img class = "reviewStar" src = "pics/star.png" />
+						<span>True to its word, the specs are real and everything performs as you would expect.</span>
+					</div>
+					<p>The laptop is remarkable. Its insanely portable with its 15 in. display, but it carries with it tons of power for games. Anything at 1080p will be 
+					shredded by this thing. Perfect for travelling gamers who also need to get a little work done.
+					</p>
+					
+					<hr />
+					
+					<img src = "pics/pfp.png" />
+					<span class = "name">Bananiel</span>
+					<div>
+						<img class = "reviewStar" src = "pics/star.png" />
+						<img class = "reviewStar" src = "pics/star.png" />
+						<img class = "reviewStar" src = "pics/star.png" />
+						<img class = "reviewStar" src = "pics/star.png" />
+						<img class = "reviewStar" src = "pics/star.png" />
+						<span>This is a great computer for gaming</span>
+					</div>
+					<p class = "review">This is a great computer for gaming, and normal tasks. The nvme drive is pcie, and the speeds are wicked fast, making everything feel snappy. 
+					The new refreshed kaby lake i7 processor handles any task you throw at it with ease. Paired with the nvidia 10 series chips, this laptop is a beast. Shoutout to 
+					Kevin Gao.
+					</p>
+				</div>
+				
+				<hr />
+				
+			</section> 
+		</body>
+	</html>
